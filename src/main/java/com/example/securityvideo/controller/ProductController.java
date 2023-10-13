@@ -9,8 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/product")
 @RequiredArgsConstructor
@@ -19,11 +17,6 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping
-    public List<Product> findAll() {
-        return productService.findAll();
-    }
-
     @GetMapping("/info/{productId}")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public Product findById(@PathVariable Long productId) {
@@ -31,6 +24,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Product insert(@RequestBody ProductRequest request) {
         return productService.insert(request);
     }

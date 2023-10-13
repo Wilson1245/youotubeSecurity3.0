@@ -8,6 +8,8 @@ import com.example.securityvideo.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/index")
 @RequiredArgsConstructor
@@ -22,9 +24,9 @@ public class IndexController {
         return "Welcome";
     }
 
-    @GetMapping("/product/{productId}")
-    public Product infoProduct(@PathVariable Long productId) {
-        return productService.findById(productId);
+    @GetMapping("/product")
+    public List<Product> findAll() {
+        return productService.findAll();
     }
 
     @PostMapping("/register")
